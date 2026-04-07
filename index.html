@@ -11,120 +11,175 @@
         .custom-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05); }
         input[type="number"]::-webkit-inner-spin-button, 
         input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        .bg-disabled { background-color: #f1f5f9; cursor: not-allowed; }
+        .disabled-section { opacity: 0.4; pointer-events: none; background-color: #f8fafc; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen py-8 px-4">
     <div class="max-w-3xl mx-auto">
+        <!-- Header -->
         <div class="text-center mb-8">
             <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight">Laporan 1000 HPK</h1>
-            <p class="text-slate-500 mt-2">Sistem Pencatatan Terintegrasi (Baris 11+)</p>
+            <p class="text-slate-500 mt-2">Pencatatan Data Terintegrasi</p>
         </div>
 
+        <!-- Form Card -->
         <div class="bg-white rounded-2xl custom-shadow border border-slate-100 overflow-hidden">
             <form id="hpkForm" class="p-6 md:p-8 space-y-8">
                 
+                <!-- Section: Identitas (Nama & NIK ditukar) -->
                 <div class="space-y-4">
                     <div class="flex items-center gap-2 pb-2 border-b border-slate-100">
-                        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-width="2"></path></svg>
+                        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         <h3 class="font-semibold text-slate-800">Identitas Utama</h3>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-1">
-                            <label class="text-sm font-medium text-slate-700">NIK (Kolom B)</label>
-                            <input type="text" name="nik" inputmode="numeric" pattern="[0-9]*" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '');" placeholder="16 digit NIK" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none" required>
-                        </div>
+                        <!-- Nama di Kiri -->
                         <div class="space-y-1">
                             <label class="text-sm font-medium text-slate-700">Nama (Kolom R)</label>
-                            <input type="text" name="nama" placeholder="Nama lengkap" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none" required>
+                            <input type="text" name="nama" placeholder="Nama lengkap" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition-all uppercase" required>
+                        </div>
+                        <!-- NIK di Kanan dengan Checklist Kosong -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-center">
+                                <label class="text-sm font-medium text-slate-700">NIK (Kolom B)</label>
+                                <label class="flex items-center gap-1 text-[10px] font-bold text-red-500 cursor-pointer bg-red-50 px-1.5 py-0.5 rounded border border-red-100">
+                                    <input type="checkbox" id="empty_nik" class="w-3 h-3"> TIDAK ADA NIK
+                                </label>
+                            </div>
+                            <input type="text" id="nik_field" name="nik" inputmode="numeric" pattern="[0-9]*" maxlength="16"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                placeholder="16 digit NIK" 
+                                class="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition-all" 
+                                required>
                         </div>
                     </div>
                 </div>
 
+                <!-- Section: Usia Anak (T-X) - Checklist Dihapus -->
                 <div class="space-y-4">
-                    <div class="flex justify-between items-center pb-2 border-b border-slate-100">
-                        <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2"></path></svg>
-                            <h3 class="font-semibold text-slate-800">Usia Anak (T-X)</h3>
-                        </div>
-                        <label class="flex items-center gap-2 text-xs font-bold text-red-500 cursor-pointer">
-                            <input type="checkbox" id="empty_usia" class="rounded"> DATA KOSONG
-                        </label>
+                    <div class="flex items-center gap-2 pb-2 border-b border-slate-100">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 class="font-semibold text-slate-800">Usia Anak (Bulan/Tahun)</h3>
                     </div>
-                    <div id="container_usia" class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                        <input type="number" name="anak01" placeholder="0-1 th" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
-                        <input type="number" name="anak12" placeholder="1-2 th" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
-                        <input type="number" name="anak23" placeholder="2-3 th" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
-                        <input type="number" name="anak34" placeholder="3-4 th" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
-                        <input type="number" name="anak45" placeholder="4-5 th" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                    <div id="section_usia" class="grid grid-cols-2 sm:grid-cols-5 gap-3 transition-all">
+                        <div class="space-y-1">
+                            <label class="text-[10px] uppercase font-bold text-slate-400 px-1 text-center block">0-1 Th</label>
+                            <input type="number" name="anak01" placeholder="0" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] uppercase font-bold text-slate-400 px-1 text-center block">1-2 Th</label>
+                            <input type="number" name="anak12" placeholder="0" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] uppercase font-bold text-slate-400 px-1 text-center block">2-3 Th</label>
+                            <input type="number" name="anak23" placeholder="0" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] uppercase font-bold text-slate-400 px-1 text-center block">3-4 Th</label>
+                            <input type="number" name="anak34" placeholder="0" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] uppercase font-bold text-slate-400 px-1 text-center block">4-5 Th</label>
+                            <input type="number" name="anak45" placeholder="0" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
                     </div>
                 </div>
 
+                <!-- Section: Jarak & Berat (Kalkulasi Otomatis) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
+                    <!-- Jarak Kelahiran (Y) -->
+                    <div class="space-y-3">
                         <div class="flex justify-between items-center">
-                            <label class="text-sm font-bold text-slate-700">Jarak Lahir (Y)</label>
-                            <label class="text-[10px] text-red-500 font-bold flex items-center gap-1 cursor-pointer">
-                                <input type="checkbox" id="empty_jarak"> TIDAK ADA
+                            <label class="text-sm font-bold text-slate-700 italic">Jarak Lahir Anak 1 & 2 (Y)</label>
+                            <label class="flex items-center gap-1.5 text-[10px] font-bold text-red-500 cursor-pointer bg-red-50 px-2 py-1 rounded border border-red-100 uppercase">
+                                <input type="checkbox" id="empty_jarak" class="w-3 h-3"> Tidak Ada
                             </label>
                         </div>
-                        <div id="container_jarak" class="flex gap-2">
-                            <input type="number" id="th1" placeholder="Anak 1" class="w-1/2 px-4 py-2.5 rounded-lg border border-slate-200 outline-none">
-                            <input type="number" id="th2" placeholder="Anak 2" class="w-1/2 px-4 py-2.5 rounded-lg border border-slate-200 outline-none">
+                        <div id="section_jarak" class="flex gap-2 transition-all duration-300">
+                            <input type="number" id="th1" placeholder="Tahun 1" class="w-1/2 px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
+                            <input type="number" id="th2" placeholder="Tahun 2" class="w-1/2 px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
                         </div>
-                        <input type="hidden" name="jarak_kelahiran" id="hasil_jarak" value="-">
-                        <p id="info_jarak" class="text-[11px] font-bold text-indigo-600 h-2"></p>
+                        <input type="hidden" name="jarak_kelahiran" id="hidden_jarak" value="-">
+                        <p id="label_jarak" class="text-[11px] font-bold text-indigo-600 px-1 min-h-[1rem]"></p>
                     </div>
 
-                    <div class="space-y-2">
+                    <!-- Berat & Panjang (Z) -->
+                    <div class="space-y-3">
                         <div class="flex justify-between items-center">
-                            <label class="text-sm font-bold text-slate-700">BB & PB Lahir (Z)</label>
-                            <label class="text-[10px] text-red-500 font-bold flex items-center gap-1 cursor-pointer">
-                                <input type="checkbox" id="empty_z"> TIDAK ADA
+                            <label class="text-sm font-bold text-slate-700 italic">Berat & Panjang Lahir (Z)</label>
+                            <label class="flex items-center gap-1.5 text-[10px] font-bold text-red-500 cursor-pointer bg-red-50 px-2 py-1 rounded border border-red-100 uppercase">
+                                <input type="checkbox" id="empty_bbpb" class="w-3 h-3"> Tidak Ada
                             </label>
                         </div>
-                        <div id="container_z" class="flex gap-2">
-                            <input type="number" step="0.1" id="bb" placeholder="BB (kg)" class="w-1/2 px-4 py-2.5 rounded-lg border border-slate-200 outline-none">
-                            <input type="number" id="pb" placeholder="PB (cm)" class="w-1/2 px-4 py-2.5 rounded-lg border border-slate-200 outline-none">
+                        <div id="section_bbpb" class="flex gap-2 transition-all duration-300">
+                            <input type="number" step="0.1" id="bb" placeholder="BB (kg)" class="w-1/2 px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
+                            <input type="number" id="pb" placeholder="PB (cm)" class="w-1/2 px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none">
                         </div>
-                        <input type="hidden" name="berat_lahir" id="hasil_z" value="-">
-                        <p id="info_z" class="text-[11px] font-bold text-slate-500 h-2"></p>
+                        <input type="hidden" name="berat_lahir" id="hidden_bbpb" value="-">
+                        <p id="label_bbpb" class="text-[11px] font-bold text-slate-500 px-1 min-h-[1rem]"></p>
                     </div>
                 </div>
 
+                <!-- Section: Kontrasepsi (AA-AH) -->
                 <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
-                    <h3 class="font-semibold text-slate-800 mb-4 flex items-center gap-2">
-                        <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2"></path></svg>
-                        Metode Kontrasepsi (AA-AH)
-                    </h3>
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 class="font-semibold text-slate-800">Metode Kontrasepsi (KB)</h3>
+                    </div>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50"><input type="checkbox" name="kondom" value="V" class="w-4 h-4"><span class="ml-3 text-sm">Kondom</span></label>
-                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50"><input type="checkbox" name="pil" value="V" class="w-4 h-4"><span class="ml-3 text-sm">Pil</span></label>
-                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50"><input type="checkbox" name="suntik" value="V" class="w-4 h-4"><span class="ml-3 text-sm">Suntik</span></label>
-                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50"><input type="checkbox" name="implan" value="V" class="w-4 h-4"><span class="ml-3 text-sm">Implan</span></label>
-                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50"><input type="checkbox" name="iud" value="V" class="w-4 h-4"><span class="ml-3 text-sm">IUD</span></label>
-                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50"><input type="checkbox" name="mop" value="V" class="w-4 h-4"><span class="ml-3 text-sm">MOP</span></label>
-                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50"><input type="checkbox" name="mow" value="V" class="w-4 h-4"><span class="ml-3 text-sm">MOW</span></label>
-                        <label class="flex items-center p-3 bg-white border border-red-200 rounded-lg cursor-pointer hover:bg-red-50"><input type="checkbox" name="tidak_kb" value="V" class="w-4 h-4"><span class="ml-3 text-sm font-bold text-red-600">Tidak KB</span></label>
+                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="checkbox" name="kondom" value="V" class="w-4 h-4 text-emerald-600 rounded">
+                            <span class="ml-3 text-sm font-medium text-slate-700">Kondom</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="checkbox" name="pil" value="V" class="w-4 h-4 text-emerald-600 rounded">
+                            <span class="ml-3 text-sm font-medium text-slate-700">Pil</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="checkbox" name="suntik" value="V" class="w-4 h-4 text-emerald-600 rounded">
+                            <span class="ml-3 text-sm font-medium text-slate-700">Suntik</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="checkbox" name="implan" value="V" class="w-4 h-4 text-emerald-600 rounded">
+                            <span class="ml-3 text-sm font-medium text-slate-700">Implan</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="checkbox" name="iud" value="V" class="w-4 h-4 text-emerald-600 rounded">
+                            <span class="ml-3 text-sm font-medium text-slate-700">IUD</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="checkbox" name="mop" value="V" class="w-4 h-4 text-emerald-600 rounded">
+                            <span class="ml-3 text-sm font-medium text-slate-700">MOP</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50 transition-colors">
+                            <input type="checkbox" name="mow" value="V" class="w-4 h-4 text-emerald-600 rounded">
+                            <span class="ml-3 text-sm font-medium text-slate-700">MOW</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-white border-red-200 rounded-lg cursor-pointer hover:bg-red-50 transition-colors">
+                            <input type="checkbox" name="tidak_kb" value="V" class="w-4 h-4 text-red-600 rounded">
+                            <span class="ml-3 text-sm font-bold text-red-600">Tidak KB</span>
+                        </label>
                     </div>
                 </div>
 
+                <!-- Section: Stunting (AJ-AK) -->
                 <div class="space-y-4">
-                    <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider text-center">Status Stunting (AJ-AK)</h3>
+                    <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider text-center">Status Anak Stunting</h3>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <label class="relative flex items-center justify-center px-8 py-3 bg-white border-2 border-slate-200 rounded-xl cursor-pointer has-[:checked]:border-red-500 has-[:checked]:bg-red-50 group">
+                        <label class="relative flex items-center justify-center px-10 py-3 bg-white border-2 border-slate-200 rounded-xl cursor-pointer hover:border-red-400 has-[:checked]:border-red-500 has-[:checked]:bg-red-50 transition-all group">
                             <input type="radio" name="stunting" value="ya" class="absolute opacity-0" required>
-                            <span class="text-slate-600 font-semibold group-has-[:checked]:text-red-700">YA</span>
+                            <span class="text-slate-600 font-bold group-has-[:checked]:text-red-700">YA</span>
                         </label>
-                        <label class="relative flex items-center justify-center px-8 py-3 bg-white border-2 border-slate-200 rounded-xl cursor-pointer has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-50 group">
+                        <label class="relative flex items-center justify-center px-10 py-3 bg-white border-2 border-slate-200 rounded-xl cursor-pointer hover:border-emerald-400 has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-50 transition-all group">
                             <input type="radio" name="stunting" value="tidak" class="absolute opacity-0">
-                            <span class="text-slate-600 font-semibold group-has-[:checked]:text-emerald-700">TIDAK</span>
+                            <span class="text-slate-600 font-bold group-has-[:checked]:text-emerald-700">TIDAK</span>
                         </label>
                     </div>
                 </div>
 
+                <!-- Submit Area -->
                 <div class="pt-4">
-                    <button type="submit" id="btn" class="w-full py-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-3">
+                    <button type="submit" id="btn" class="w-full py-4 bg-slate-900 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg transform active:scale-95 transition-all duration-200 flex items-center justify-center gap-3">
                         <span id="btnText">Kirim Data</span>
                         <div id="btnLoader" class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     </button>
@@ -132,85 +187,122 @@
                 </div>
             </form>
         </div>
+        
+        <p class="text-center text-slate-400 text-[10px] mt-8 uppercase tracking-widest">&copy; 2024 Tim Pendamping Keluarga - Laporan 1000 HPK</p>
     </div>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxlLSKPbP-VFiiBcru3lEuK3N1PFsKnUc95LYAFpA6P2rDbpAM2nbqWCpl5d5TZC7Oh/exec';
         const form = document.getElementById('hpkForm');
 
-        // Fitur Checklist Kosong Logic
-        function setupEmptyFeature(checkboxId, containerId, inputsClassOrIds, hiddenId = null, defaultValue = "-") {
+        // --- LOGIKA CHECKLIST NIK ---
+        const emptyNikCb = document.getElementById('empty_nik');
+        const nikField = document.getElementById('nik_field');
+        
+        emptyNikCb.addEventListener('change', function() {
+            if(this.checked) {
+                nikField.value = "Tidak Ada";
+                nikField.readOnly = true;
+                nikField.classList.add('bg-slate-50', 'text-slate-400');
+            } else {
+                nikField.value = "";
+                nikField.readOnly = false;
+                nikField.classList.remove('bg-slate-50', 'text-slate-400');
+            }
+        });
+
+        // --- LOGIKA CHECKLIST KOSONG JARAK & BB/PB ---
+        function handleCheck(checkboxId, sectionId, inputSelector, hiddenId, defaultValue = "-") {
             const cb = document.getElementById(checkboxId);
-            const container = document.getElementById(containerId);
-            const elements = typeof inputsClassOrIds === 'string' ? document.querySelectorAll(inputsClassOrIds) : inputsClassOrIds.map(id => document.getElementById(id));
-            
+            const section = document.getElementById(sectionId);
+            const inputs = document.querySelectorAll(inputSelector);
+            const hidden = document.getElementById(hiddenId);
+
             cb.addEventListener('change', function() {
-                const isChecked = this.checked;
-                container.style.opacity = isChecked ? "0.3" : "1";
-                elements.forEach(el => {
-                    el.disabled = isChecked;
-                    if(isChecked) el.value = "";
-                });
-                if(hiddenId) {
-                    document.getElementById(hiddenId).value = isChecked ? defaultValue : "";
+                if(this.checked) {
+                    section.classList.add('disabled-section');
+                    inputs.forEach(i => { i.value = ""; i.disabled = true; });
+                    if(hidden) hidden.value = "Tidak Ada";
+                    const labelId = sectionId.replace('section_', 'label_');
+                    const label = document.getElementById(labelId);
+                    if(label) label.innerText = "";
+                } else {
+                    section.classList.remove('disabled-section');
+                    inputs.forEach(i => i.disabled = false);
+                    if(hidden) hidden.value = defaultValue;
                 }
             });
         }
 
-        // Jalankan Fitur Kosong
-        setupEmptyFeature('empty_usia', 'container_usia', '.inp-usia');
-        setupEmptyFeature('empty_jarak', 'container_jarak', ['th1', 'th2'], 'hasil_jarak', 'Tidak Ada');
-        setupEmptyFeature('empty_z', 'container_z', ['bb', 'pb'], 'hasil_z', 'Tidak Ada');
+        handleCheck('empty_jarak', 'section_jarak', '#section_jarak input', 'hidden_jarak');
+        handleCheck('empty_bbpb', 'section_bbpb', '#section_bbpb input', 'hidden_bbpb');
 
-        // Auto Calc Logic (Updated)
-        function autoCalc() {
-            if(document.getElementById('empty_jarak').checked) return;
-            const t1 = document.getElementById('th1').value;
-            const t2 = document.getElementById('th2').value;
-            if(t1 && t2) {
-                const diff = Math.abs(t2 - t1);
-                document.getElementById('hasil_jarak').value = diff + " Tahun";
-                document.getElementById('info_jarak').innerText = "✓ Jarak: " + diff + " Tahun";
+        // --- LOGIKA KALKULASI OTOMATIS ---
+        function calculateAll() {
+            const th1 = document.getElementById('th1').value;
+            const th2 = document.getElementById('th2').value;
+            const hJarak = document.getElementById('hidden_jarak');
+            const lJarak = document.getElementById('label_jarak');
+            
+            if(!document.getElementById('empty_jarak').checked) {
+                if(th1 && th2) {
+                    const res = Math.abs(th2 - th1) + " Tahun";
+                    hJarak.value = res;
+                    lJarak.innerText = "✓ Jarak: " + res;
+                } else {
+                    hJarak.value = "-";
+                    lJarak.innerText = "";
+                }
             }
 
-            if(document.getElementById('empty_z').checked) return;
-            const b = document.getElementById('bb').value;
-            const p = document.getElementById('pb').value;
-            if(b || p) {
-                const res = (b ? b + " kg" : "-") + " / " + (p ? p + " cm" : "-");
-                document.getElementById('hasil_z').value = res;
-                document.getElementById('info_z').innerText = "✓ Format: " + res;
+            const bb = document.getElementById('bb').value;
+            const pb = document.getElementById('pb').value;
+            const hBBPB = document.getElementById('hidden_bbpb');
+            const lBBPB = document.getElementById('label_bbpb');
+
+            if(!document.getElementById('empty_bbpb').checked) {
+                if(bb || pb) {
+                    const res = (bb ? bb + " kg" : "-") + " / " + (pb ? pb + " cm" : "-");
+                    hBBPB.value = res;
+                    lBBPB.innerText = "✓ Format: " + res;
+                } else {
+                    hBBPB.value = "-";
+                    lBBPB.innerText = "";
+                }
             }
         }
 
-        ['th1', 'th2', 'bb', 'pb'].forEach(id => document.getElementById(id).addEventListener('input', autoCalc));
+        ['th1', 'th2', 'bb', 'pb'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateAll);
+        });
 
-        // Form Submit
+        // --- SUBMIT FORM ---
         form.addEventListener('submit', e => {
             e.preventDefault();
             const btn = document.getElementById('btn');
+            const btnText = document.getElementById('btnText');
+            const btnLoader = document.getElementById('btnLoader');
+
             btn.disabled = true;
-            document.getElementById('btnText').innerText = "Mengirim...";
-            document.getElementById('btnLoader').classList.remove('hidden');
+            btnText.innerHTML = "Mengirim...";
+            btnLoader.classList.remove('hidden');
 
             const formData = new FormData(form);
-            
-            // Logika Stunting
-            const stVal = formData.get('stunting');
-            if(stVal === 'ya') formData.append('stunting_ya', 'V');
-            if(stVal === 'tidak') formData.append('stunting_tidak', 'V');
+            const stuntingVal = formData.get('stunting');
+            if(stuntingVal === 'ya') formData.append('stunting_ya', 'V');
+            if(stuntingVal === 'tidak') formData.append('stunting_tidak', 'V');
 
             fetch(scriptURL, { method: 'POST', body: formData})
-            .then(res => {
-                alert("Data Berhasil Disimpan!");
-                location.reload(); // Refresh untuk reset semua status checklist
-            })
-            .catch(err => {
-                alert("Error: " + err.message);
-                btn.disabled = false;
-                document.getElementById('btnText').innerText = "Coba Lagi";
-                document.getElementById('btnLoader').classList.add('hidden');
-            });
+                .then(response => {
+                    alert("Sukses! Data berhasil dikirim.");
+                    location.reload();
+                })
+                .catch(error => {
+                    alert("Gagal mengirim data. Periksa koneksi internet.");
+                    btn.disabled = false;
+                    btnText.innerHTML = "Coba Lagi";
+                    btnLoader.classList.add('hidden');
+                });
         });
     </script>
 </body>
