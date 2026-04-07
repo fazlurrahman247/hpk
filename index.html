@@ -35,9 +35,9 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-1">
                             <label class="text-sm font-medium text-slate-700">Nama (Kolom R)</label>
-                            <input type="text" name="nama" placeholder="NAMA LENGKAP" 
-                                oninput="this.value = this.value.toUpperCase();"
-                                class="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition-all uppercase" required>
+                            <!-- Fitur auto-uppercase dihapus agar input lebih stabil -->
+                            <input type="text" name="nama" placeholder="Nama Lengkap" 
+                                class="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition-all" required>
                         </div>
                         <div class="space-y-1">
                             <div class="flex justify-between items-center">
@@ -62,25 +62,25 @@
                         <h3 class="font-semibold text-slate-800">Usia Anak (Bulan/Tahun)</h3>
                     </div>
                     <div id="section_usia" class="grid grid-cols-2 sm:grid-cols-5 gap-3 transition-all">
-                        <div class="space-y-1">
-                            <label class="text-[10px] uppercase font-bold text-slate-400 px-1 text-center block">0-1 Th</label>
-                            <input type="number" name="anak01" placeholder="0" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <div class="space-y-1 text-center">
+                            <label class="text-[10px] uppercase font-bold text-slate-400">0-1 Th</label>
+                            <input type="number" name="anak01" placeholder="0" class="w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
-                        <div class="space-y-1">
-                            <label class="text-[10px] uppercase font-bold text-slate-400 px-1 text-center block">1-2 Th</label>
-                            <input type="number" name="anak12" placeholder="0" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <div class="space-y-1 text-center">
+                            <label class="text-[10px] uppercase font-bold text-slate-400">1-2 Th</label>
+                            <input type="number" name="anak12" placeholder="0" class="w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
-                        <div class="space-y-1">
-                            <label class="text-[10px] uppercase font-bold text-slate-400 px-1 text-center block">2-3 Th</label>
-                            <input type="number" name="anak23" placeholder="0" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <div class="space-y-1 text-center">
+                            <label class="text-[10px] uppercase font-bold text-slate-400">2-3 Th</label>
+                            <input type="number" name="anak23" placeholder="0" class="w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
-                        <div class="space-y-1">
-                            <label class="text-[10px] uppercase font-bold text-slate-400 px-1 text-center block">3-4 Th</label>
-                            <input type="number" name="anak34" placeholder="0" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <div class="space-y-1 text-center">
+                            <label class="text-[10px] uppercase font-bold text-slate-400">3-4 Th</label>
+                            <input type="number" name="anak34" placeholder="0" class="w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
-                        <div class="space-y-1">
-                            <label class="text-[10px] uppercase font-bold text-slate-400 px-1 text-center block">4-5 Th</label>
-                            <input type="number" name="anak45" placeholder="0" class="inp-usia w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <div class="space-y-1 text-center">
+                            <label class="text-[10px] uppercase font-bold text-slate-400">4-5 Th</label>
+                            <input type="number" name="anak45" placeholder="0" class="w-full text-center px-2 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
                         </div>
                     </div>
                 </div>
@@ -125,7 +125,6 @@
                         <h3 class="font-semibold text-slate-800">Metode Kontrasepsi (KB)</h3>
                     </div>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                        <!-- Checkbox KB (Singkat) -->
                         <label class="flex items-center p-3 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-emerald-50 transition-colors">
                             <input type="checkbox" name="kondom" value="V" class="w-4 h-4 text-emerald-600 rounded">
                             <span class="ml-3 text-sm font-medium text-slate-700">Kondom</span>
@@ -176,21 +175,19 @@
                     </div>
                 </div>
 
-                <!-- Submit Area & Trash Button -->
+                <!-- Submit & Trash -->
                 <div class="pt-4 space-y-6">
                     <button type="submit" id="btn" class="w-full py-4 bg-slate-900 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg transform active:scale-95 transition-all duration-200 flex items-center justify-center gap-3">
                         <span id="btnText">Kirim Data</span>
                         <div id="btnLoader" class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     </button>
 
-                    <!-- Divider Admin -->
                     <div class="relative flex items-center justify-center py-2">
                         <div class="flex-grow border-t border-slate-200"></div>
                         <span class="flex-shrink mx-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Otoritas Admin</span>
                         <div class="flex-grow border-t border-slate-200"></div>
                     </div>
 
-                    <!-- Tombol Trash (Tempat Sampah) -->
                     <button type="button" onclick="confirmClear()" class="w-full py-3.5 bg-white border-2 border-red-100 text-red-600 hover:bg-red-50 font-bold rounded-xl transition-all flex items-center justify-center gap-2 group">
                         <svg class="w-5 h-5 transition-transform group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -204,7 +201,7 @@
         <p class="text-center text-slate-400 text-[10px] mt-8 uppercase tracking-widest">&copy; 2024 Tim Pendamping Keluarga - Laporan 1000 HPK</p>
     </div>
 
-    <!-- Modal Konfirmasi Hapus -->
+    <!-- Modal Konfirmasi -->
     <div id="modalClear" class="fixed inset-0 bg-slate-900/60 hidden items-center justify-center p-4 z-50 backdrop-blur-sm">
         <div class="bg-white rounded-3xl p-8 max-w-sm w-full space-y-6 shadow-2xl text-center">
             <div class="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center text-red-600 mb-2">
@@ -214,9 +211,9 @@
             </div>
             <div class="space-y-2">
                 <h3 class="text-xl font-bold text-slate-800">Hapus Data Permanen?</h3>
-                <p class="text-sm text-slate-500">Baris 11-85 akan dikosongkan. Masukkan kode rahasia:</p>
+                <p class="text-sm text-slate-500">Seluruh data pada baris 11-85 akan hilang.</p>
             </div>
-            <input type="password" id="clearPass" placeholder="••••" class="w-full px-4 py-4 border-2 border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-red-500 bg-slate-50 font-mono text-center text-2xl tracking-[0.5em]">
+            <input type="password" id="clearPass" placeholder="Kode Admin" class="w-full px-4 py-4 border-2 border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-red-500 bg-slate-50 font-mono text-center text-2xl tracking-[0.2em]">
             <div class="flex gap-3">
                 <button onclick="closeModal()" class="flex-1 py-3.5 text-slate-600 font-bold bg-slate-100 rounded-xl hover:bg-slate-200 transition-all">BATAL</button>
                 <button id="btnConfirmDelete" onclick="executeClear()" class="flex-1 py-3.5 text-white font-bold bg-red-600 rounded-xl hover:bg-red-700 shadow-lg shadow-red-200 transition-all">HAPUS</button>
@@ -228,22 +225,19 @@
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxlLSKPbP-VFiiBcru3lEuK3N1PFsKnUc95LYAFpA6P2rDbpAM2nbqWCpl5d5TZC7Oh/exec';
         const form = document.getElementById('hpkForm');
 
-        // --- MODAL HAPUS ---
         function confirmClear() {
-            document.getElementById('modalClear').classList.remove('hidden');
-            document.getElementById('modalClear').classList.add('flex');
+            document.getElementById('modalClear').classList.replace('hidden', 'flex');
             setTimeout(() => document.getElementById('clearPass').focus(), 150);
         }
         
         function closeModal() {
-            document.getElementById('modalClear').classList.add('hidden');
-            document.getElementById('modalClear').classList.remove('flex');
+            document.getElementById('modalClear').classList.replace('flex', 'hidden');
             document.getElementById('clearPass').value = "";
         }
 
         function executeClear() {
             const pass = document.getElementById('clearPass').value;
-            if(!pass) return alert("Kode admin diperlukan!");
+            if(!pass) return alert("Masukkan kode rahasia!");
             
             const btn = document.getElementById('btnConfirmDelete');
             btn.disabled = true;
@@ -253,7 +247,7 @@
                 .then(res => res.text())
                 .then(data => {
                     alert(data);
-                    if(data.includes("Sukses")) {
+                    if(data.toLowerCase().includes("sukses")) {
                         closeModal();
                         location.reload();
                     } else {
@@ -261,14 +255,14 @@
                         btn.innerText = "HAPUS";
                     }
                 })
-                .catch(err => {
-                    alert("Gagal terhubung ke server.");
+                .catch(() => {
+                    alert("Koneksi gagal.");
                     btn.disabled = false;
                     btn.innerText = "HAPUS";
                 });
         }
 
-        // --- NIK LOGIC ---
+        // Logic NIK
         const emptyNikCb = document.getElementById('empty_nik');
         const nikField = document.getElementById('nik_field');
         
@@ -276,15 +270,15 @@
             if(this.checked) {
                 nikField.value = "TIDAK ADA";
                 nikField.readOnly = true;
-                nikField.classList.add('bg-slate-50', 'text-slate-400');
+                nikField.classList.add('bg-slate-100', 'text-slate-400');
             } else {
                 nikField.value = "";
                 nikField.readOnly = false;
-                nikField.classList.remove('bg-slate-50', 'text-slate-400');
+                nikField.classList.remove('bg-slate-100', 'text-slate-400');
             }
         });
 
-        // --- AUTO CALCULATION & CHECKBOX LOGIC ---
+        // Logic Checkbox Section
         function handleCheck(checkboxId, sectionId, inputSelector, hiddenId, defaultValue = "-") {
             const cb = document.getElementById(checkboxId);
             const section = document.getElementById(sectionId);
@@ -296,8 +290,7 @@
                     section.classList.add('disabled-section');
                     inputs.forEach(i => { i.value = ""; i.disabled = true; });
                     if(hidden) hidden.value = "Tidak Ada";
-                    const labelId = sectionId.replace('section_', 'label_');
-                    const label = document.getElementById(labelId);
+                    const label = document.getElementById(sectionId.replace('section_', 'label_'));
                     if(label) label.innerText = "";
                 } else {
                     section.classList.remove('disabled-section');
@@ -346,7 +339,7 @@
 
         ['th1', 'th2', 'bb', 'pb'].forEach(id => document.getElementById(id).addEventListener('input', calculateAll));
 
-        // --- SUBMIT FORM ---
+        // Submit
         form.addEventListener('submit', e => {
             e.preventDefault();
             const btn = document.getElementById('btn');
@@ -363,12 +356,12 @@
             if(stuntingVal === 'tidak') formData.append('stunting_tidak', 'V');
 
             fetch(scriptURL, { method: 'POST', body: formData})
-                .then(response => {
-                    alert("Sukses! Data berhasil dikirim.");
+                .then(() => {
+                    alert("Data Berhasil Terkirim!");
                     location.reload();
                 })
-                .catch(error => {
-                    alert("Gagal mengirim data.");
+                .catch(() => {
+                    alert("Gagal kirim data.");
                     btn.disabled = false;
                     btnText.innerHTML = "Coba Lagi";
                     btnLoader.classList.add('hidden');
