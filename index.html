@@ -33,10 +33,12 @@
                         <h3 class="font-semibold text-slate-800">Identitas Utama</h3>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Nama di Kiri -->
+                        <!-- Nama di Kiri (Ditambahkan fungsi auto-uppercase) -->
                         <div class="space-y-1">
                             <label class="text-sm font-medium text-slate-700">Nama (Kolom R)</label>
-                            <input type="text" name="nama" placeholder="Nama lengkap" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition-all uppercase" required>
+                            <input type="text" name="nama" placeholder="NAMA LENGKAP" 
+                                oninput="this.value = this.value.toUpperCase();"
+                                class="w-full px-4 py-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition-all uppercase" required>
                         </div>
                         <!-- NIK di Kanan dengan Checklist Kosong -->
                         <div class="space-y-1">
@@ -201,7 +203,7 @@
         
         emptyNikCb.addEventListener('change', function() {
             if(this.checked) {
-                nikField.value = "Tidak Ada";
+                nikField.value = "TIDAK ADA";
                 nikField.readOnly = true;
                 nikField.classList.add('bg-slate-50', 'text-slate-400');
             } else {
