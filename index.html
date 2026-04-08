@@ -289,7 +289,7 @@
                 if(this.checked) {
                     section.classList.add('disabled-section');
                     inputs.forEach(i => { i.value = ""; i.disabled = true; });
-                    if(hidden) hidden.value = "Tidak Ada";
+                    if(hidden) hidden.value = "-";
                     const label = document.getElementById(sectionId.replace('section_', 'label_'));
                     if(label) label.innerText = "";
                 } else {
